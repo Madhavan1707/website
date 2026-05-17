@@ -206,3 +206,104 @@ sections.forEach(s => io.observe(s));
 const style = document.createElement('style');
 style.textContent = '.nav-links a.active { color: #fff; background: rgba(0,212,255,0.08); }';
 document.head.appendChild(style);
+
+/* ─── CERTIFICATIONS CAROUSEL (3D COVERFLOW) ─────────────── */
+(function () {
+  const carousel = document.querySelector('.certs-carousel');
+  if (!carousel) return;
+
+  const stage = carousel.querySelector('.certs-stage');
+  const cards = Array.from(stage.querySelectorAll('.cert-card'));
+  const dots  = Array.from(carousel.querySelectorAll('.certs-dot'));
+  const total = cards.length;
+
+  let current = 0;
+  let paused  = false;
+  let tid     = null;
+
+  /* ── normalise offset to [-floor(n/2), floor(n/2)] ─────── */
+  function relOff(i) {
+    let off = (i - current + total) % total;
+    if (off > Math.floor(total / 2)) off -= total;
+    return off;
+  }
+
+  /* ── compute per-card geometry ──────────────────────────── */
+  function layout() {
+    const sw = stage.offsetWidth;
+    const cw = cards[0].offsetWidth;   // CSS sets width (52% / 72% / 84%)
+    const cx = (sw - cw) / 2;         // left edge of a centred card
+    const shift = cw * 0.68;          // how far side cards are nudged
+
+    cards.forEach((card, i) => {
+      const off = relOff(i);
+      let tx, ry, sc, op, zi;
+
+      if (off === 0) {
+        tx = cx;          ry =   0; sc = 1;    op = 1;   zi = 3;
+      } else if (off === -1) {
+        tx = cx - shift;  ry =  38; sc = 0.88; op = 0.6; zi = 2;
+      } else if (off === 1) {
+        tx = cx + shift;  ry = -38; sc = 0.88; op = 0.6; zi = 2;
+      } else if (off > 1) {
+        tx = sw + cw;     ry = -90; sc = 0.6;  op = 0;   zi = 1;
+      } else {
+        tx = -cw * 1.5;   ry =  90; sc = 0.6;  op = 0;   zi = 1;
+      }
+
+      card.style.transform = `translateX(${tx}px) perspective(1100px) rotateY(${ry}deg) scale(${sc})`;
+      card.style.opacity   = op;
+      card.style.zIndex    = zi;
+    });
+
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  /* ── enable / disable CSS transitions per-card ──────────── */
+  function setAnim(on) {
+    const t = on ? 'transform 0.72s cubic-bezier(0.16,1,0.3,1), opacity 0.72s ease' : 'none';
+    cards.forEach(c => { c.style.transition = t; });
+  }
+
+  /* ── fit stage height to active card ────────────────────── */
+  function fitHeight() {
+    requestAnimationFrame(() => {
+      const h = cards[current].offsetHeight;
+      if (h > 50) stage.style.height = h + 'px';
+    });
+  }
+
+  /* ── auto-advance ───────────────────────────────────────── */
+  function schedule() { clearTimeout(tid); tid = setTimeout(advance, 3000); }
+
+  function advance() {
+    current = (current + 1) % total;
+    setAnim(true);
+    layout();
+    if (!paused) schedule();
+  }
+
+  /* ── dot clicks ─────────────────────────────────────────── */
+  dots.forEach((d, i) => {
+    d.addEventListener('click', () => {
+      clearTimeout(tid);
+      current = i;
+      setAnim(true);
+      layout();
+      if (!paused) schedule();
+    });
+  });
+
+  /* ── hover pause ────────────────────────────────────────── */
+  carousel.addEventListener('mouseenter', () => { paused = true;  clearTimeout(tid); });
+  carousel.addEventListener('mouseleave', () => { paused = false; schedule(); });
+
+  /* ── resize ─────────────────────────────────────────────── */
+  window.addEventListener('resize', () => { setAnim(false); layout(); fitHeight(); });
+
+  /* ── init ───────────────────────────────────────────────── */
+  setAnim(false);
+  layout();
+  fitHeight();
+  schedule();
+}());
