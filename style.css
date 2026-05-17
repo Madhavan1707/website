@@ -620,7 +620,6 @@ ul { list-style: none; }
   transform-style: preserve-3d;
   transition: transform 0.65s var(--ease);
 }
-.proj-card:hover .pc-inner { transform: rotateY(180deg); }
 .pc-front, .pc-back {
   position: absolute;
   inset: 0;

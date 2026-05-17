@@ -129,23 +129,16 @@ gsap.utils.toArray('.tl-card').forEach((card, i) => {
   });
 });
 
-/* ─── PROJECT CARD 3D TILT ───────────────────────────────── */
+/* ─── PROJECT CARD 3D FLIP ───────────────────────────────── */
 document.querySelectorAll('.proj-card').forEach(card => {
   const inner = card.querySelector('.pc-inner');
-  let isFlipped = false;
 
-  card.addEventListener('mousemove', (e) => {
-    if (isFlipped) return;
-    const rect = card.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width  - 0.5) * 12;
-    const y = ((e.clientY - rect.top)  / rect.height - 0.5) * -10;
-    gsap.to(inner, { rotateY: x, rotateX: y, duration: 0.4, ease: 'power1.out', transformPerspective: 1000 });
+  card.addEventListener('mouseenter', () => {
+    gsap.to(inner, { rotateY: 180, duration: 0.65, ease: 'power2.inOut' });
   });
   card.addEventListener('mouseleave', () => {
-    isFlipped = false;
-    gsap.to(inner, { rotateY: 0, rotateX: 0, duration: 0.6, ease: 'power3.out' });
+    gsap.to(inner, { rotateY: 0, rotateX: 0, duration: 0.65, ease: 'power2.inOut' });
   });
-  card.addEventListener('mouseenter', () => { isFlipped = true; });
 });
 
 /* ─── SKILL CHIP WAVE ────────────────────────────────────── */
