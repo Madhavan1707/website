@@ -95,6 +95,26 @@ ul { list-style: none; }
   transform: translateY(-2px);
   border-color: var(--accent);
 }
+.btn-cv {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 0.95rem;
+  background: rgba(6, 255, 165, 0.08);
+  border: 1px solid rgba(6, 255, 165, 0.3);
+  color: var(--accent3);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.btn-cv:hover {
+  background: rgba(6, 255, 165, 0.14);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(6, 255, 165, 0.18);
+}
 
 /* ─── NAV ───────────────────────────────────────────────── */
 #nav {

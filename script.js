@@ -175,12 +175,14 @@ document.querySelectorAll('.int-card').forEach((card, i) => {
 /* ─── HAMBURGER (MOBILE NAV) ─────────────────────────────── */
 const hamburger = document.querySelector('.nav-hamburger');
 const navLinks   = document.querySelector('.nav-links');
+const closeMenu  = () => { navLinks.style.cssText = ''; };
 hamburger?.addEventListener('click', () => {
   const open = navLinks.style.display === 'flex';
   navLinks.style.cssText = open
     ? ''
     : 'display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(7,7,26,0.97);border-bottom:1px solid rgba(0,212,255,0.12);padding:1rem 2rem;gap:0.5rem;backdrop-filter:blur(20px)';
 });
+navLinks?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
 /* ─── ACTIVE NAV LINK ────────────────────────────────────── */
 const sections = document.querySelectorAll('section[id]');
@@ -192,6 +194,8 @@ const io = new IntersectionObserver(entries => {
       links.forEach(l => l.classList.remove('active'));
       const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
       active?.classList.add('active');
+      const hash = entry.target.id === 'hero' ? location.pathname : '#' + entry.target.id;
+      history.replaceState(null, '', hash);
     }
   });
 }, { threshold: 0.5 });

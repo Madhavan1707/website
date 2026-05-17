@@ -1,5 +1,9 @@
 *.docx
+!resume.docx
 *.pdf
 .DS_Store
 node_modules
 .vercel
+
+.vercel
+.gstack/
