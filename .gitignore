@@ -1,6 +1,7 @@
 *.docx
 !resume.docx
 *.pdf
+!resume.pdf
 .DS_Store
 node_modules
 .vercel
