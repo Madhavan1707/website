@@ -307,28 +307,3 @@ document.head.appendChild(style);
   fitHeight();
   schedule();
 }());
-
-/* ─── RESUME MODAL ──────────────────────────────────────── */
-(function () {
-  const modal    = document.getElementById('resumeModal');
-  const frame    = document.getElementById('resumeFrame');
-  const openBtn  = document.getElementById('resumeBtn');
-  const closeBtn = document.getElementById('resumeClose');
-  const backdrop = modal.querySelector('.rm-backdrop');
-
-  function open() {
-    if (!frame.src) frame.src = 'resume.pdf';
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function close() {
-    modal.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  openBtn.addEventListener('click', open);
-  closeBtn.addEventListener('click', close);
-  backdrop.addEventListener('click', close);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
-}());
