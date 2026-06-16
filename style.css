@@ -47,7 +47,7 @@ ul { list-style: none; }
 
 /* ─── LAYOUT HELPERS ───────────────────────────────────── */
 .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
-.section { padding: 100px 0; }
+.section { padding: 80px 0; }
 .section-eyebrow {
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -702,6 +702,7 @@ ul { list-style: none; }
   pointer-events: none;
 }
 .pc-icon { font-size: 2rem; line-height: 1; }
+.pc-icon svg { width: 2rem; height: 2rem; color: var(--accent); }
 .pc-badge {
   display: inline-flex;
   align-self: flex-start;
@@ -998,6 +999,7 @@ ul { list-style: none; }
   box-shadow: 0 15px 40px rgba(0,0,0,0.35);
 }
 .int-icon { font-size: 2rem; display: block; margin-bottom: 0.75rem; }
+.int-icon svg { width: 2rem; height: 2rem; color: var(--accent); }
 .int-card h4 {
   font-family: var(--font-head);
   font-size: 0.875rem;
@@ -1067,6 +1069,7 @@ ul { list-style: none; }
   flex-shrink: 0;
 }
 .cl-icon.mono { font-family: var(--font-mono); font-size: 0.85rem; }
+.cl-icon svg { width: 1.25rem; height: 1.25rem; color: var(--accent); }
 .cl-text { display: flex; flex-direction: column; text-align: left; }
 .cl-label {
   font-family: var(--font-mono);
@@ -1136,4 +1139,17 @@ footer .container {
   .hs-divider { display: none; }
   .contact-links { flex-direction: column; align-items: stretch; }
   .cl-item { min-width: unset; }
+}
+
+/* ─── FOCUS STYLES ───────────────────────────────────────── */
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+/* ─── REDUCED MOTION ─────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
