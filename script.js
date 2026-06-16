@@ -198,7 +198,7 @@ const io = new IntersectionObserver(entries => {
       history.replaceState(null, '', hash);
     }
   });
-}, { threshold: 0.5 });
+}, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
 
 sections.forEach(s => io.observe(s));
 
@@ -297,6 +297,27 @@ document.head.appendChild(style);
   /* ── hover pause ────────────────────────────────────────── */
   carousel.addEventListener('mouseenter', () => { paused = true;  clearTimeout(tid); });
   carousel.addEventListener('mouseleave', () => { paused = false; schedule(); });
+
+  /* ── touch swipe ─────────────────────────────────────────── */
+  let touchStartX = 0;
+  stage.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+    paused = true;
+    clearTimeout(tid);
+  }, { passive: true });
+  stage.addEventListener('touchend', e => {
+    const delta = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(delta) > 40) {
+      current = delta > 0
+        ? (current + 1) % total
+        : (current - 1 + total) % total;
+      setAnim(true);
+      layout();
+      fitHeight();
+    }
+    paused = false;
+    schedule();
+  }, { passive: true });
 
   /* ── resize ─────────────────────────────────────────────── */
   window.addEventListener('resize', () => { setAnim(false); layout(); fitHeight(); });

@@ -364,6 +364,7 @@ ul { list-style: none; }
   gap: 2rem;
 }
 .hs-item { display: flex; flex-direction: column; gap: 0.2rem; }
+.hs-val { display: flex; align-items: baseline; gap: 0.1rem; }
 .hs-num {
   font-family: var(--font-mono);
   font-size: 1.6rem;
@@ -964,7 +965,6 @@ ul { list-style: none; }
 .certs-dot {
   width: 8px; height: 8px;
   border-radius: 4px;
-  border: none;
   background: var(--surface2);
   border: 1px solid rgba(255,255,255,0.1);
   cursor: pointer;
