@@ -36,6 +36,7 @@
         <li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
         <li><a href="#certifications">Certifications</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -84,7 +85,7 @@
         <div class="hero-actions">
           <a href="#experience" class="btn-primary">See My Work</a>
           <a href="mailto:madhvan02@gmail.com" class="btn-secondary">Get In Touch</a>
-          <a href="resume.pdf" target="_blank" rel="noopener" class="btn-cv">↗ Resume</a>
+          <button class="btn-cv" id="resumeBtn">↗ Resume</button>
         </div>
         <div class="hero-stats">
           <div class="hs-item">
@@ -212,43 +213,22 @@
           <div class="tl-card">
             <div class="tl-head">
               <div>
-                <h3>Software Engineer — Vehicle Connectivity</h3>
+                <h3>Software Engineer — Vehicle Connectivity &amp; Android Telematics POC</h3>
                 <p class="tl-company">Visteon Corporation · Pune, India</p>
               </div>
-              <span class="tl-period">Feb 2024 – Sep 2024</span>
+              <span class="tl-period">Aug 2023 – Sep 2024</span>
             </div>
             <ul class="tl-list">
+              <li>Engineered the full Android telematics layer for a two-wheeler POC — MQTT pub/sub, AIDL interfaces, JSON payload handlers, event-driven location tracking, and heartbeat monitoring.</li>
+              <li>Built multi-threaded background services managing timers, handlers, and dynamic service binding, achieving stable performance under severe memory constraints in two-wheeler environments.</li>
+              <li>Delivered the POC demonstration 2 weeks ahead of schedule by independently owning end-to-end Android framework integration.</li>
               <li>Led development of a real-time vehicle tracking system achieving sub-50ms end-to-end latency via MQTT, Protobuf serialization, AES-256 encryption, and ZSTD compression.</li>
               <li>Reduced data bandwidth consumption by ~35% through ZSTD integration without sacrificing transmission reliability.</li>
               <li>Built Android background services for CAN bus signal monitoring maintaining continuous data capture during low-power vehicle states — zero data loss in all field testing scenarios.</li>
               <li>Validated end-to-end communication flows with backend and network teams, producing a deployment-ready architecture for fleet-scale telematics.</li>
             </ul>
             <div class="tl-tags">
-              <span>MQTT</span><span>Protobuf</span><span>AES-256</span><span>ZSTD</span><span>CAN Bus</span><span>Android Java</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="tl-item reveal-tl">
-          <div class="tl-marker">
-            <div class="tl-dot"></div>
-            <div class="tl-line"></div>
-          </div>
-          <div class="tl-card">
-            <div class="tl-head">
-              <div>
-                <h3>Software Engineer — Android Telematics POC</h3>
-                <p class="tl-company">Visteon Corporation · Pune, India</p>
-              </div>
-              <span class="tl-period">Aug 2023 – Feb 2024</span>
-            </div>
-            <ul class="tl-list">
-              <li>Engineered the full Android telematics layer for a two-wheeler POC — MQTT pub/sub, AIDL interfaces, JSON payload handlers, event-driven location tracking, and heartbeat monitoring.</li>
-              <li>Built multi-threaded background services managing timers, handlers, and dynamic service binding, achieving stable performance under severe memory constraints in two-wheeler environments.</li>
-              <li>Delivered the POC demonstration 2 weeks ahead of schedule by independently owning end-to-end Android framework integration.</li>
-            </ul>
-            <div class="tl-tags">
-              <span>MQTT</span><span>AIDL</span><span>Multi-threading</span><span>Android Java</span>
+              <span>MQTT</span><span>AIDL</span><span>Protobuf</span><span>AES-256</span><span>ZSTD</span><span>CAN Bus</span><span>Multi-threading</span><span>Android Java</span>
             </div>
           </div>
         </div>
@@ -647,6 +627,15 @@
       <span>Open to Bengaluru</span>
     </div>
   </footer>
+
+  <!-- ─── RESUME MODAL ──────────────────────────────────────── -->
+  <div id="resumeModal" class="resume-modal" role="dialog" aria-modal="true" aria-label="Resume PDF">
+    <div class="rm-backdrop"></div>
+    <div class="rm-container">
+      <button class="rm-close" id="resumeClose" aria-label="Close resume">✕</button>
+      <iframe id="resumeFrame" src="" title="Resume PDF" class="rm-frame"></iframe>
+    </div>
+  </div>
 
   <script type="module" src="pretext-init.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
