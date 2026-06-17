@@ -190,7 +190,7 @@ hamburger?.addEventListener('click', () => {
   const open = navLinks.style.display === 'flex';
   navLinks.style.cssText = open
     ? ''
-    : 'display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(7,7,26,0.97);border-bottom:1px solid rgba(0,212,255,0.12);padding:1rem 2rem;gap:0.5rem;backdrop-filter:blur(20px)';
+    : 'display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(8,8,23,0.97);border-bottom:1px solid rgba(180,150,80,0.20);padding:1rem 2rem;gap:0.5rem;backdrop-filter:blur(20px)';
 });
 navLinks?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
@@ -214,7 +214,7 @@ sections.forEach(s => io.observe(s));
 
 /* ─── NAV ACTIVE STYLE ───────────────────────────────────── */
 const style = document.createElement('style');
-style.textContent = '.nav-links a.active { color: #fff; background: rgba(0,212,255,0.08); }';
+style.textContent = '.nav-links a.active { color: #fff; background: rgba(201,168,76,0.08); border-bottom: 2px solid var(--accent); }';
 document.head.appendChild(style);
 
 /* ─── CERTIFICATIONS CAROUSEL (3D COVERFLOW) ─────────────── */
