@@ -1,5 +1,7 @@
 gsap.registerPlugin(ScrollTrigger);
 
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 /* ─── NAV SCROLL ────────────────────────────────────────── */
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
@@ -7,18 +9,22 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 /* ─── HERO ENTRANCE ─────────────────────────────────────── */
-const heroTl = gsap.timeline({ delay: 0.2 });
-heroTl
-  .from('.hero-pre', { opacity: 0, y: 20, duration: 0.6, ease: 'power3.out' })
-  .from('.hn-line', {
-    opacity: 0, y: '100%', duration: 0.8, stagger: 0.12, ease: 'power4.out'
-  }, '-=0.2')
-  .from('.hero-roles', { opacity: 0, y: 15, duration: 0.6, ease: 'power3.out' }, '-=0.3')
-  .from('.hero-tagline', { opacity: 0, y: 15, duration: 0.6, ease: 'power3.out' }, '-=0.4')
-  .from('.hero-actions', { opacity: 0, y: 15, duration: 0.5, ease: 'power3.out' }, '-=0.3')
-  .from('.hero-stats', { opacity: 0, y: 10, duration: 0.5, ease: 'power3.out' }, '-=0.3')
-  .from('.hero-photo-wrap', { opacity: 0, scale: 0.9, duration: 0.8, ease: 'power3.out' }, 0.4)
-  .from('.scroll-cue', { opacity: 0, duration: 0.5 }, '-=0.2');
+if (prefersReducedMotion) {
+  gsap.set('.hero-pre, .hn-line, .hero-roles, .hero-tagline, .hero-actions, .hero-stats, .hero-photo-wrap, .scroll-cue', { opacity: 1, y: 0, x: 0, scale: 1, clearProps: 'transform' });
+} else {
+  const heroTl = gsap.timeline({ delay: 0.2 });
+  heroTl
+    .from('.hero-pre', { opacity: 0, y: 20, duration: 0.6, ease: 'power3.out' })
+    .from('.hn-line', {
+      opacity: 0, y: '100%', duration: 0.8, stagger: 0.12, ease: 'power4.out'
+    }, '-=0.2')
+    .from('.hero-roles', { opacity: 0, y: 15, duration: 0.6, ease: 'power3.out' }, '-=0.3')
+    .from('.hero-tagline', { opacity: 0, y: 15, duration: 0.6, ease: 'power3.out' }, '-=0.4')
+    .from('.hero-actions', { opacity: 0, y: 15, duration: 0.5, ease: 'power3.out' }, '-=0.3')
+    .from('.hero-stats', { opacity: 0, y: 10, duration: 0.5, ease: 'power3.out' }, '-=0.3')
+    .from('.hero-photo-wrap', { opacity: 0, scale: 0.9, duration: 0.8, ease: 'power3.out' }, 0.4)
+    .from('.scroll-cue', { opacity: 0, duration: 0.5 }, '-=0.2');
+}
 
 /* ─── STAT COUNTER ──────────────────────────────────────── */
 function animateCounter(el) {
@@ -81,6 +87,10 @@ document.addEventListener('mousemove', (e) => {
 /* ─── SCROLL REVEAL HELPER ──────────────────────────────── */
 function reveal(selector, vars = {}) {
   gsap.utils.toArray(selector).forEach((el, i) => {
+    if (prefersReducedMotion) {
+      gsap.set(el, { opacity: 1, x: 0, y: 0, scale: 1, clearProps: 'transform' });
+      return;
+    }
     gsap.to(el, {
       opacity: 1,
       x: 0, y: 0,
